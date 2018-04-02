@@ -21,6 +21,7 @@ CWMP：Course Work Manager Platform   课程作业管理平台
                学生代表收发作业、再提交给老师这种浪费人力物力的不便捷来说，该系统大大提高了老师
                对学生作业管理的效率，在学校中，该平台对老师和学生很实用。
           
+	  
  二、项目需求
  
  	1、功能结构图：        
@@ -45,18 +46,21 @@ CWMP：Course Work Manager Platform   课程作业管理平台
                 4、查看自己作业的批阅情况；
                 5、个人设置：修改密码、查看个人信息；
 
-   
+
    	3、用例图：
    ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/UseCase.png)
    
 	4、用例描述-管理员部分：
    ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/UseCaseDescription.png)
    
+   
 三、数据库设计——数据库表关系
         ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/DataBase.png)
 
+
 四、架构设计——MVC架构
 	![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/Framework.png)
+
 
 五、开发技术和组件
         
@@ -67,10 +71,10 @@ CWMP：Course Work Manager Platform   课程作业管理平台
         系统开发环境和组件： 
 	Windows 8操作系统 +  eclipse  +  JDK8.0  +  SQLserver 2014( DBMS ) + Tomcat 7.0 + Chrome浏览器 
 
+
 六、界面设计
 
-        
-   登录界面：
+   	登录界面：
    ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/login.png)
         
         管理员界面：
@@ -82,10 +86,12 @@ CWMP：Course Work Manager Platform   课程作业管理平台
         学生界面：
    ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/student.png)    
         
+	
 七、项目总结
         
         1、项目进度展示：
-        
+   ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/GanttChart.png) 
+   
         2、分析与总结：
            本课程作业管理系统实现了需求分析的基本功能，基本满足了三个功能角色的需求，开发过程中一开始一直在实
         现界面的优化，并且多次修改数据库。本系统实现了学生作业的上传与下载，及教师发布作业，批改作业打分，统
@@ -97,3 +103,5 @@ CWMP：Course Work Manager Platform   课程作业管理平台
         言进行开发，因此，通过这次实验，把所学的理论知识与实际应用联系了起来，为我们今后走向社会打下了坚实的
         基础。
 
+
+   ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/ThankYou.png)
