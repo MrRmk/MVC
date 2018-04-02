@@ -1,0 +1,371 @@
+-- 课程作业管理平台 --
+-- 创建数据库 --
+create database CWMP
+
+-- 创建表 --
+Use CWMP
+Go
+-------管理员表--------------------------------------------------
+create table Manager
+(
+	Mno varchar(4) primary key,-- (主键)账号--
+	Mname varchar(20) unique,	-- 姓名 --
+	Msex varchar(2),			-- 性别 --
+	Mpassword varchar(16)		-- 密码 --
+)
+--------教师表---------------------------------------------------
+create table Teacher
+(
+	Tno varchar(6) primary key,-- (主键)教师号--
+	Tname varchar(20) unique,	-- 姓名 --
+	Tsex varchar(2),			-- 性别 --
+	Toffice	varchar(20),		-- 办公室 --
+	Tpassword varchar(16),		-- 密码 --
+	Tdept varchar(20)			-- 所在系 --
+)
+--------班级表---------------------------------------------------
+create table CLass
+(
+	CLno varchar(6) primary key,	-- (主键)班级号--
+	CLnumber int,					-- 人数 --
+	CLdept varchar(20)				-- 所在系 --
+)
+--------课程表---------------------------------------------------
+create table Course
+(
+	Cno varchar(4) primary key,	-- (主键)课程号--
+	Cname varchar(20),			-- 课程名 --
+	Ccredit int					-- 学分 --
+)
+--------学生表---------------------------------------------------
+create table Student
+(
+	Sno varchar(8) primary key,-- (主键)学号--
+	Sname varchar(20) unique,	-- 姓名 --
+	Ssex varchar(2),			-- 性别 --
+	Spassword varchar(16),		-- 密码 --
+	Sdept varchar(20),			-- 所在系 --
+	CLno varchar(6) foreign key references CLass(CLno)-- 班级号 --
+)
+--------作业表----------------------------------------------------
+create table Work
+(
+	Wno varchar(4) primary key,	-- (主键)作业号--
+	Wtitle varchar(50),			-- 主题 --
+	Wcontent varchar(500),		-- 内容 --
+	Wdeadline varchar(30),		-- 截止时间 --
+	Tno varchar(6),				-- (非外键)教师号--
+	CLno varchar(6),			-- (非外键)班级号--
+	Cno varchar(4)				-- (非外键)课程号--
+)
+--------授课表---------------------------------------------------
+create table TCCL
+(
+	Tno varchar(6),		-- (主键)教师号--
+	CLno varchar(6),	-- (主键)班级号--
+	Cno varchar(4),		-- (主键)课程号--
+	primary key(Tno,Cno,CLno),
+	foreign key(Tno) references Teacher(Tno),	-- (外键)教师号--
+	foreign key(CLno) references CLass(CLno),	-- (外键)班级号 --
+	foreign key(Cno) references Course(Cno)		-- (外键)课程号 --
+)
+--------批改表---------------------------------------------------
+create table Ccheck
+(
+	Sno varchar(8),			-- 学号 --
+	Wno varchar(4),			-- 作业号 --
+	Chscore int,			-- 得分 --
+	Chremark varchar(100),	-- 评语 --
+	Chtime varchar(30),		-- 批改时间--
+	Uptime varchar(30),		-- 提交时间--
+	Canswer varchar(100)	-- 答案 --
+	primary key(Sno,Wno),
+	foreign key(Sno) references Student(Sno),	-- (外键)学生号 --
+	foreign key(Wno) references Work(Wno)		-- (外键)作业号 --
+)
+-------公告表-----------------------------------------------------
+create table Notice
+(
+	NtNo varchar(8) primary key,--公告号--
+	NtTitle varchar(20),		--主题--
+	NtContent varchar(500),		--内容--
+	NtTime  varchar(20),		--发布时间--
+	NtCLno varchar(6),			--(非外键)班级号--
+	NtTno varchar(6),			--(非外键)教师号--
+)
+-----------------插入数据-----------------------------------------
+------------向管理员表中插入数据----------------------------------
+insert into Manager(Mno,Mname,Msex,Mpassword) values('1111','任孟凯','男','aaaaaa');
+insert into Manager(Mno,Mname,Msex,Mpassword) values('2222','张琦','男','aaaaaa');
+insert into Manager(Mno,Mname,Msex,Mpassword) values('3333','李嘉丽','女','aaaaaa');
+------------向教师表中插入数据------------------------------------
+insert into Teacher(Tno,Tname,Tsex,Toffice,Tpassword,Tdept) values('140001','舒坚','男','D311','bbbbbb','软件学院');
+insert into Teacher(Tno,Tname,Tsex,Toffice,Tpassword,Tdept) values('140002','严赢富','男','D311','bbbbbb','软件学院');
+insert into Teacher(Tno,Tname,Tsex,Toffice,Tpassword,Tdept) values('140003','罗海平','男','D312','bbbbbb','软件学院');
+insert into Teacher(Tno,Tname,Tsex,Toffice,Tpassword,Tdept) values('140004','梁旗军','男','D312','bbbbbb','软件学院');
+insert into Teacher(Tno,Tname,Tsex,Toffice,Tpassword,Tdept) values('140005','苏曦','男','D312','bbbbbb','软件学院');
+insert into Teacher(Tno,Tname,Tsex,Toffice,Tpassword,Tdept) values('140006','刘琳岚','女','D313','bbbbbb','信工学院');
+------------向班级表中插入数据-----------------------------------
+insert into CLass(CLno,CLnumber,CLdept) values('142011',12,'软件学院');
+insert into CLass(CLno,CLnumber,CLdept) values('142012',2,'软件学院');
+insert into CLass(CLno,CLnumber,CLdept) values('142013',2,'软件学院');
+insert into CLass(CLno,CLnumber,CLdept) values('142014',36,'软件学院');
+insert into CLass(CLno,CLnumber,CLdept) values('142015',38,'软件学院');
+-----------向课程表中插入数据------------------------------------
+insert into Course(Cno,Cname,Ccredit) values('1','软件工程',3);
+insert into Course(Cno,Cname,Ccredit) values('2','数据库',4);
+insert into Course(Cno,Cname,Ccredit) values('3','操作系统',3);
+insert into Course(Cno,Cname,Ccredit) values('4','计算机组成原理',3);
+insert into Course(Cno,Cname,Ccredit) values('5','计算机导论',2);
+insert into Course(Cno,Cname,Ccredit) values('6','数据结构',4);
+/*
+insert into Course(Cno,Cname,Ccredit) values('7','面向过程程序设计基础',3);
+insert into Course(Cno,Cname,Ccredit) values('8','高等数学',5);
+insert into Course(Cno,Cname,Ccredit) values('9','大学英语',2);
+insert into Course(Cno,Cname,Ccredit) values('10','线性代数',2);
+insert into Course(Cno,Cname,Ccredit) values('11','概率论',2);*/
+-----------向学生表中插入数据------------------------------------
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201101','王嫣兰','女','cccccc','软件学院','142011');
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201102','赵雯楚','女','cccccc','软件学院','142011');
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201103','李嘉丽','女','cccccc','软件学院','142011');
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201104','廖美欢','女','cccccc','软件学院','142011');
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201105','卢超素','女','cccccc','软件学院','142011');
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201106','张琦','男','cccccc','软件学院','142011');
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201107','何昶源','男','cccccc','软件学院','142011');
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201108','王启宁','男','cccccc','软件学院','142011');
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201109','任孟凯','男','cccccc','软件学院','142011');
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201110','孙明峰','男','cccccc','软件学院','142011');
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201111','崔平平','男','cccccc','软件学院','142011');
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201112','高晨阳','男','cccccc','软件学院','142011');
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201201','张三','男','cccccc','软件学院','142012');
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201202','李四','女','cccccc','软件学院','142012');
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201203','王小明','男','cccccc','软件学院','142012');
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201301','张小红','女','cccccc','软件学院','142013');
+insert into Student(Sno,Sname,Ssex,Spassword,Sdept,CLno) values('14201302','王二','男','cccccc','软件学院','142013');
+---------向作业表中插入数据--------------------------------------
+insert into Work(Wno,Wtitle,Wcontent,Wdeadline,Tno,CLno,Cno) values('1','软件工程-课后作业1','软件工程五大设计是什么？','2017.03.15-18:00:00','140001','142011','1');
+insert into Work(Wno,Wtitle,Wcontent,Wdeadline,Tno,CLno,Cno) values('2','软件工程-课后作业1','软件工程五大设计是什么？','2017.03.15-18:00:00','140001','142012','1');
+insert into Work(Wno,Wtitle,Wcontent,Wdeadline,Tno,CLno,Cno) values('3','软件工程-课后作业1','软件工程五大设计是什么？','2017.03.15-18:00:00','140001','142013','1');
+insert into Work(Wno,Wtitle,Wcontent,Wdeadline,Tno,CLno,Cno) values('4','数据库-课后作业1','论述数据库系统的特点？','2017.03.16-17:00:00','140002','142011','2');
+insert into Work(Wno,Wtitle,Wcontent,Wdeadline,Tno,CLno,Cno) values('5','数据库-课后作业1','论述数据库系统的特点？','2017.03.16-17:00:00','140002','142012','2');
+insert into Work(Wno,Wtitle,Wcontent,Wdeadline,Tno,CLno,Cno) values('6','数据库-课后作业1','论述数据库系统的特点？','2017.03.16-17:00:00','140002','142013','2');
+insert into Work(Wno,Wtitle,Wcontent,Wdeadline,Tno,CLno,Cno) values('7','操作系统-课后作业1','简述操作系统的五大功能？','2017.03.15-17:30:00','140003','142011','3');
+insert into Work(Wno,Wtitle,Wcontent,Wdeadline,Tno,CLno,Cno) values('8','操作系统-课后作业1','简述操作系统的五大功能？','2017.03.15-17:30:00','140003','142012','3');
+insert into Work(Wno,Wtitle,Wcontent,Wdeadline,Tno,CLno,Cno) values('9','操作系统-课后作业1','简述操作系统的五大功能？','2017.03.15-17:30:00','140003','142013','3');
+insert into Work(Wno,Wtitle,Wcontent,Wdeadline,Tno,CLno,Cno) values('10','操作系统-课后作业2','程序并发执行时为什么会失去封闭性和可再现性？','2017.03.18-17:30:00','140003','142011','3');
+---------向授课表中插入数据------------------------------------
+insert into TCCL(Tno,CLno,Cno) values('140001','142011','1');
+insert into TCCL(Tno,CLno,Cno) values('140001','142012','1');
+insert into TCCL(Tno,CLno,Cno) values('140001','142013','1');
+insert into TCCL(Tno,CLno,Cno) values('140002','142011','2');
+insert into TCCL(Tno,CLno,Cno) values('140002','142012','2');
+insert into TCCL(Tno,CLno,Cno) values('140002','142013','2');
+insert into TCCL(Tno,CLno,Cno) values('140003','142011','3');
+insert into TCCL(Tno,CLno,Cno) values('140003','142012','3');
+insert into TCCL(Tno,CLno,Cno) values('140003','142013','3');
+-------向批改表中插入数据--------------------------------------
+insert into Ccheck(Sno,Wno,Chscore,Chremark,Chtime,Uptime,Canswer) values('14201103','1','86','答的不错，稍微补充更好。','2017.03.15-18:00:00','2017.3.1-13:30:10','F:\UploadWork');
+insert into Ccheck(Sno,Wno,Chscore,Chremark,Chtime,Uptime,Canswer) values('14201106','1','90','答的很好。','2017.03.15-18:00:00','2017.3.1-09:30:00','F:\UploadWork');
+insert into Ccheck(Sno,Wno,Chscore,Chremark,Chtime,Uptime,Canswer) values('14201107','1','94','切中要点，很好。','2017.03.15-18:00:00','2017.3.1-10:20:00','F:\UploadWork');
+insert into Ccheck(Sno,Wno,Chscore,Chremark,Chtime,Uptime,Canswer) values('14201108','1','85','不太完善，不过还行。','2017.03.15-18:00:00','2017.3.1-12:12:12','F:\UploadWork');
+insert into Ccheck(Sno,Wno,Chscore,Chremark,Chtime,Uptime,Canswer) values('14201109','1','88','可以，个别地方有不足。','2017.03.15-18:00:00','2017.3.1-15:30:20','F:\UploadWork');
+
+insert into Ccheck(Sno,Wno,Chscore,Chremark,Chtime,Uptime,Canswer) values('14201103','4','86','答的不错，稍微补充更好。','2017.03.15-17:00:00','2017.3.7-15:30:20','F:\UploadWork');
+insert into Ccheck(Sno,Wno,Chscore,Chremark,Chtime,Uptime,Canswer) values('14201106','4','','','','2017.3.7-17:30:20','F:\UploadWork');
+insert into Ccheck(Sno,Wno,Chscore,Chremark,Chtime,Uptime,Canswer) values('14201107','4','90','答的很好。','2017.03.15-17:00:00','2017.3.8-15:00:20','F:\UploadWork');
+insert into Ccheck(Sno,Wno,Chscore,Chremark,Chtime,Uptime,Canswer) values('14201108','4','88','可以，个别地方有不足。','2017.03.15-17:00:00','2017.3.8-10:30:20','F:\UploadWork');
+insert into Ccheck(Sno,Wno,Chscore,Chremark,Chtime,Uptime,Canswer) values('14201109','4','','','','2017.3.12-21:30:00','F:\UploadWork');
+
+insert into Ccheck(Sno,Wno,Chscore,Chremark,Chtime,Uptime,Canswer) values('14201103','7','86','答的不错，稍微补充更好。','2017.03.16-17:00:00','2017.3.8-16:00:23','F:\UploadWork');
+insert into Ccheck(Sno,Wno,Chscore,Chremark,Chtime,Uptime,Canswer) values('14201106','7','','','','2017.3.9-11:00:00','F:\UploadWork');
+insert into Ccheck(Sno,Wno,Chscore,Chremark,Chtime,Uptime,Canswer) values('14201109','7','','','','2017.3.9-10:10:20','F:\UploadWork');
+---------向公告表中插入数据-------------------------------------
+insert into Notice(NtNo,NtTitle,NtContent,NtTime,NtCLno,NtTno) values('01','调课通知1','因出差,周四的课调到周日上','2017-2-3','142011','140001');
+insert into Notice(NtNo,NtTitle,NtContent,NtTime,NtCLno,NtTno) values('02','调课通知2','因出差,周四的课调到周五上','2017-3-6','142012','140001');
+insert into Notice(NtNo,NtTitle,NtContent,NtTime,NtCLno,NtTno) values('03','调课通知','因出差,周二的课不上了','2017-3-6','142011','140001');
+insert into Notice(NtNo,NtTitle,NtContent,NtTime,NtCLno,NtTno) values('04','调课通知','因出差,周四的课调到周日上2','2017-3-6','142011','140002');
+insert into Notice(NtNo,NtTitle,NtContent,NtTime,NtCLno,NtTno) values('05','调课通知','因出差,周四的课调到周日上3','2017-3-6','142014','140003');
+insert into Notice(NtNo,NtTitle,NtContent,NtTime,NtCLno,NtTno) values('06','调课通知','因出差,周四的课调到周日上4','2017-3-6','142013','140004');
+--------------查询表--------------------------------------------
+select * from Manager;
+select * from Teacher;
+select * from CLass;
+select * from Course;
+select * from Student;
+select * from Work;
+select * from TCCL;
+select * from Ccheck;
+select * from Notice;
+-----------删除表中记录 ----------------------------------------
+delete from Manager where Mno='1111';
+delete from Teacher where Tno='140005';
+delete from Student where Sno='14201109';
+delete from Student where Sno='14201110';
+delete from Student where Sno='14201111';
+delete from Student where Sno='14201112';
+delete from CLass where CLno='142011';
+delete from Course where Cno='4';
+delete from Work where Wno='10';
+delete from TCCL where Tno='140003'and Cno='4'and CLno='142013';
+delete from Ccheck where Sno='14201109' and Wno='4';
+delete from Notice where NtNo='01';
+
+-----删除表(不释放空间，删除一行数据)----------------------------
+delete from Manager;
+delete from Teacher;
+delete from Student;
+delete from CLass;
+delete from Course;
+delete from Work;
+delete from TCCL;
+delete from Ccheck;
+delete from Notice;
+----删除表(所有数据都不存在了)-----------------------------------
+drop table Manager;-- 1 --
+drop table Teacher;-- 5 --
+drop table Student;-- 3 --
+drop table CLass;-- 4 --
+drop table Course;-- 2 --
+drop table Work;-- 6 --
+drop table TCCL;-- 1 --
+drop table Ccheck;-- 1 --
+drop table Notice;-- 1 --
+-----删除表(释放空间，清空表数据，表还存在)-----------------------
+truncate table Manager;
+truncate table Teacher;
+truncate table Student;
+truncate table CLass;
+truncate table Course;
+truncate table Work;
+truncate table TCCL;
+truncate table Ccheck;
+truncate table Notice;
+----------------------------查询表---------------------------------
+select * from Manager;
+select * from Teacher;
+select * from CLass;
+select * from Course;
+select * from Student;
+select * from Work;
+select * from TCCL;
+select * from Ccheck;
+select * from Work;
+select * from Notice;
+---------------更新测试数据----------------------------------------
+UPDATE Manager SET Mname='张先生',Msex='男' WHERE Mno='1111';
+UPDATE Teacher SET Tname='王老师',Tsex='男',Tdept='软件学院' WHERE Tno='140001';
+UPDATE Teacher SET Tname='李老师',Tsex='女',Tdept='软件学院' WHERE Tno='140003';
+insert into Ccheck(Sno,Wno,Chscore,Chremark,Chtime,Canswer) values('14201101','1','88','可以，个别地方有不足。','2016.3.3-12:30','D:/cwmp/');
+delete from Student where Sno = '14201201'
+select * from student
+insert into Ccheck(Sno,Wno,Chscore,Chremark,Chtime,Uptime,Canswer) values('14201106','1','86','答的不错，稍微补充更好。','2016.3.2-15:30','2016.3.1-15:30','D:/cwmp/');
+insert into Work(Wno,Wtitle,Wcontent,Wdeadline,Tno,CLno,Cno) values('6','课后作业','论述数据、数据库、数据库管理系统、数据库系统的概念？','2017.3.5-18:20','140001','142011','2');
+--------------------存储过程---------------------------------------
+-- 查询管理员表 --
+create procedure proc_Manager
+as 
+	select * from Manager
+go
+-- 查询教师表 --
+create procedure proc_Teacher
+as 
+	select * from Teacher
+go
+-- 查询班级表 --
+create procedure proc_CLass
+as 
+	select * from CLass
+go
+-- 查询课程表 --
+create procedure proc_Course
+as 
+	select * from Course
+go
+-- 查询学生表 --
+create procedure proc_Student
+as 
+	select * from Student
+go
+-- 查询作业表 --
+create procedure proc_Work
+as 
+	select * from Work
+go
+-- 查询授课表 --
+create procedure proc_TCCL
+as 
+	select * from TCCL
+go
+-- 查询批改表 --
+create procedure proc_Ccheck
+as 
+	select * from Ccheck
+go
+-- 查询公告表 --
+create procedure proc_Notice
+as 
+	select * from Notice
+go
+---------------执行存储过程------------------
+exec proc_Manager;
+exec proc_Teacher;
+exec proc_CLass;
+exec proc_Course;
+exec proc_Student;
+exec proc_Work;
+exec proc_TCCL;
+exec proc_Ccheck;
+exec proc_Notice;
+
+---------------------触发器----------------------------------------
+-- 在学生Student表中添加学生时，班级表CLass人数+1 --
+create trigger tg_AddStudent on Student
+for insert
+as 
+	declare @BSno varchar(8),@BSname varchar(20),@BSsex varchar(2),@BSpassword varchar(16),@BSdept varchar(20),@BCLno varchar(6)
+	select @BSno=Sno,@BSname=Sname,@BSsex=Ssex,@BSpassword=Spassword,@BSdept=Sdept,@BCLno=CLno 
+	from inserted
+	update CLass
+	set CLnumber = CLnumber + 1 
+	where @BCLno=CLno;
+go
+-- 在学生Student表中删除学生时，班级表CLass人数-1 --
+create trigger tg_DeleteStudent on Student
+for delete
+as 
+	declare @BSno varchar(8),@BSname varchar(20),@BSsex varchar(2),@BSpassword varchar(16),@BSdept varchar(20),@BCLno varchar(6)
+	select @BSno=Sno,@BSname=Sname,@BSsex=Ssex,@BSpassword=Spassword,@BSdept=Sdept,@BCLno=CLno
+	from deleted
+	update CLass
+	set CLnumber = CLnumber - 1 
+	where @BCLno=CLno;
+go
+-- 在重复提交作业时，判断Ccheck表中是否有数据，即确定是否提交过，如果提交过，则删除重新插入 --
+create trigger TR_insert_Ccheck on Ccheck
+INSTEAD OF INSERT
+as
+begin
+   declare @DSno varchar(8),@DWno varchar(4) 
+   select @DSno=Sno ,@DWno=Wno  from inserted
+   if exists ( select Sno,Wno from Ccheck where @DSno=Sno and @DWno=Wno )
+      delete Ccheck where @DSno=Sno and @DWno=Wno
+  
+   insert Ccheck(Sno,Wno,Chscore,Chremark,Chtime,Uptime,Canswer)
+   select Sno,Wno,Chscore,Chremark,Chtime,Uptime,Canswer from inserted
+end
+
+--------------查看创建的触发器文本的语句-----------------------------
+EXEC sp_helptext 'tg_AddStudent';
+EXEC sp_helptext 'tg_DeleteStudent';
+EXEC sp_helptext 'TR_insert_Ccheck';
+
+--------------删除触发器---------------------------------------------
+drop trigger tg_AddStudent;
+drop trigger tg_DeleteStudent;
+drop trigger TR_insert_Ccheck;
+
+--------------查看数据库已有触发器-----------------------------------
+use CWMP
+Go
+select * from sysobjects where xtype='TR'
+
