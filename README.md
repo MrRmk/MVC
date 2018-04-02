@@ -93,6 +93,7 @@ CWMP：Course Work Manager Platform   课程作业管理平台
    ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/GanttChart.png) 
    
         2、分析与总结：
+	
            本课程作业管理系统实现了需求分析的基本功能，基本满足了三个功能角色的需求，开发过程中一开始一直在实
         现界面的优化，并且多次修改数据库。本系统实现了学生作业的上传与下载，及教师发布作业，批改作业打分，统
         计作业提交情况等。管理员对学生教师及课程的管理等功能，系统已经进行了测试，基本功能都成功了，但是因为
@@ -104,4 +105,4 @@ CWMP：Course Work Manager Platform   课程作业管理平台
         基础。
 
 
-   ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/ThankYou.png)
+   
