@@ -21,9 +21,12 @@ CWMP：Course Work Manager Platform   课程作业管理平台
                学生代表收发作业、再提交给老师这种浪费人力物力的不便捷来说，该系统大大提高了老师
                对学生作业管理的效率，在学校中，该平台对老师和学生很实用。
           
- 二、项目需求——功能结构图
-        
-        功能实现：
+ 二、项目需求
+ 
+ 	1、功能结构图：        
+   ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/FunctionalStructure.png)
+	
+	2、功能说明：
         管理员：
                 1、教师、班级、课程管理功能：
                 添加、删除、修改、查看（教师、学生和课程）
@@ -42,13 +45,18 @@ CWMP：Course Work Manager Platform   课程作业管理平台
                 4、查看自己作业的批阅情况；
                 5、个人设置：修改密码、查看个人信息；
 
+   
+   	3、用例图：
+   ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/UseCase.png)
+   
+	4、用例描述-管理员部分：
+   ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/UseCaseDescription.png)
+   
 三、数据库设计——数据库表关系
-
+        ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/DataBase.png)
 
 四、架构设计——MVC架构
-
-
-
+	![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/Framework.png)
 
 五、开发技术和组件
         
@@ -61,17 +69,18 @@ CWMP：Course Work Manager Platform   课程作业管理平台
 
 六、界面设计
 
-        登录界面：
         
+   登录界面：
+   ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/login.png)
         
         管理员界面：
-        
+   ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/manager.png)    
         
         教师界面：
-        
+   ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/teacher.png)    
         
         学生界面：
-        
+   ![image](https://github.com/TouchDreamRen/CWMP/raw/master/screenshots/student.png)    
         
 七、项目总结
         
