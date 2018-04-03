@@ -6,21 +6,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 public class JDBCUtils {
-	String username = "sa";		//sql serverµÄÊı¾İ¿âµÄÓÃ»§Ãû
-	String password = "314159";	//sql serverµÄÊı¾İ¿âµÄÃÜÂë
-	String url = "jdbc:sqlserver://127.0.0.1:1433;DatabaseName=CWMP";//sql serverµÄÊı¾İ¿âµÄurl
-	String sql = "select Mno,Mpassword from Manager";//sqlÓï¾ä
+	String username = "sa";		//sql serverçš„æ•°æ®åº“çš„ç”¨æˆ·å
+	String password = "";	//sql serverçš„æ•°æ®åº“çš„å¯†ç 
+	String url = "jdbc:sqlserver://127.0.0.1:1433;DatabaseName=CWMP";//sql serverçš„æ•°æ®åº“çš„url
+	String sql = "select Mno,Mpassword from Manager";//sqlè¯­å¥
 	Connection con = null;//
 	Statement st = null;
 	ResultSet rs = null;
 	PreparedStatement pstm = null;
 	
-	//Êı¾İ¿âµÃµ½Á¬½Ó
+	//æ•°æ®åº“å¾—åˆ°è¿æ¥
 	public void GetConnection(){
 		try {
-			//1¡¢¼ÓÔØÇı¶¯³ÌĞò
+			//1ã€åŠ è½½é©±åŠ¨ç¨‹åº
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			//2¡¢µÃµ½Á´½Ó
+			//2ã€å¾—åˆ°é“¾æ¥
 			con = DriverManager.getConnection(url,username,password);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -28,17 +28,17 @@ public class JDBCUtils {
 			e.printStackTrace();
 		}
 	}
-	//ÊµÏÖ²éÑ¯¹¦ÄÜµÄ·½·¨
+	//å®ç°æŸ¥è¯¢åŠŸèƒ½çš„æ–¹æ³•
 	public ResultSet sqlQuery(String sql){
 		try {
 			
-			//¼ÓÔØÇı¶¯+µÃµ½Á¬½Ó
+			//åŠ è½½é©±åŠ¨+å¾—åˆ°è¿æ¥
 			GetConnection();
 			pstm = con.prepareStatement(sql);
-			System.out.println("*****Êı¾İ¿â***²éÑ¯¹¦ÄÜ***Á¬½Ó³É¹¦ÁË!");
+			System.out.println("*****æ•°æ®åº“***æŸ¥è¯¢åŠŸèƒ½***è¿æ¥æˆåŠŸäº†!");
 			
 			rs = pstm.executeQuery();
-			System.out.println("*****Êı¾İ¿â***²éÑ¯Êı¾İ³É¹¦!");
+			System.out.println("*****æ•°æ®åº“***æŸ¥è¯¢æ•°æ®æˆåŠŸ!");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -49,21 +49,21 @@ public class JDBCUtils {
 		return rs;
 	}
 	
-	//ÊµÏÖĞŞ¸Ä£¬Ìí¼Ó¹¦ÄÜµÄ·½·¨
+	//å®ç°ä¿®æ”¹ï¼Œæ·»åŠ åŠŸèƒ½çš„æ–¹æ³•
 	public int sqlUpdate(String sql){
 		int i = 0;
 		try {
 			
-			//¼ÓÔØÇı¶¯+µÃµ½Á¬½Ó
+			//åŠ è½½é©±åŠ¨+å¾—åˆ°è¿æ¥
 			GetConnection();
 			pstm = con.prepareStatement(sql);
-			System.out.println("*****Êı¾İ¿â***ĞŞ¸Ä/Ìí¼Ó¹¦ÄÜ***Á¬½Ó³É¹¦ÁË!");
+			System.out.println("*****æ•°æ®åº“***ä¿®æ”¹/æ·»åŠ åŠŸèƒ½***è¿æ¥æˆåŠŸäº†!");
 			
 			i = pstm.executeUpdate();
 			if( i==1 ){
-				System.out.println("*****Êı¾İ¿â***ĞŞ¸Ä/Ìí¼ÓÊı¾İ³É¹¦!");
+				System.out.println("*****æ•°æ®åº“***ä¿®æ”¹/æ·»åŠ æ•°æ®æˆåŠŸ!");
 			}else{
-				System.out.println("*****Êı¾İ¿â***ĞŞ¸Ä/Ìí¼ÓÊı¾İÊ§°Ü!");
+				System.out.println("*****æ•°æ®åº“***ä¿®æ”¹/æ·»åŠ æ•°æ®å¤±è´¥!");
 			}
 			
 		} catch (SQLException e) {
@@ -74,20 +74,20 @@ public class JDBCUtils {
 		}
 		return i;
 	}
-	//ÊµÏÖÉ¾³ı¹¦ÄÜµÄ·½·¨
+	//å®ç°åˆ é™¤åŠŸèƒ½çš„æ–¹æ³•
 	public void sqlDelete(String sql){
 		try {
 			
-			//¼ÓÔØÇı¶¯+µÃµ½Á¬½Ó
+			//åŠ è½½é©±åŠ¨+å¾—åˆ°è¿æ¥
 			GetConnection();
 			pstm = con.prepareStatement(sql);
-			System.out.println("*****Êı¾İ¿â***É¾³ı¹¦ÄÜ***Á¬½Ó³É¹¦ÁË!");
+			System.out.println("*****æ•°æ®åº“***åˆ é™¤åŠŸèƒ½***è¿æ¥æˆåŠŸäº†!");
 			
 			int i = pstm.executeUpdate();
 			if( i==1 ){
-				System.out.println("*****Êı¾İ¿â***É¾³ıÊı¾İ³É¹¦!");
+				System.out.println("*****æ•°æ®åº“***åˆ é™¤æ•°æ®æˆåŠŸ!");
 			}else{
-				System.out.println("*****Êı¾İ¿â***É¾³ıÊı¾İÊ§°Ü!");
+				System.out.println("*****æ•°æ®åº“***åˆ é™¤æ•°æ®å¤±è´¥!");
 			}
 			
 		} catch (SQLException e) {
@@ -101,7 +101,7 @@ public class JDBCUtils {
 	
 	public void sqlClose(){
 		
-		//6¡¢¹Ø±ÕÁ¬½Ó
+		//6ã€å…³é—­è¿æ¥
 		try {
 			if(rs != null){	
 				rs.close();
